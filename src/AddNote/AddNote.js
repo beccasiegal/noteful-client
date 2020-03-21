@@ -11,7 +11,7 @@ export default class AddNote extends Component {
     return (
       <section className='AddNote'>
         <h2>Create a note</h2>
-        <NotefulForm onSubmit={this.handleNoteSubmit}>
+        <NotefulForm>
           <div className='field'>
             <label htmlFor='note-name-input'>
               Name
@@ -38,7 +38,7 @@ export default class AddNote extends Component {
             </select>
           </div>
           <div className='buttons'>
-            <button type='submit'>
+            <button type='submit'onSubmit={this.handleNoteSubmit}>
               Add note
             </button>
           </div>
