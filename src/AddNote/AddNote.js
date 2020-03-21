@@ -11,7 +11,7 @@ export default class AddNote extends Component {
     return (
       <section className='AddNote'>
         <h2>Create a note</h2>
-        <NotefulForm>
+        <NotefulForm onSubmit={this.handleNoteSubmit}>
           <div className='field'>
             <label htmlFor='note-name-input'>
               Name
