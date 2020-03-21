@@ -10,6 +10,7 @@ import AddNote from '../AddNote/AddNote'
 import dummyStore from '../dummy-store'
 import { getNotesForFolder, findNote, findFolder } from '../notes-helpers'
 import './App.css'
+import config from '../config'
 
 class App extends Component {
   state = {
