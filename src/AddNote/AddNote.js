@@ -38,7 +38,7 @@ export default class AddNote extends Component {
             </select>
           </div>
           <div className='buttons'>
-            <button type='submit'onSubmit={this.handleNoteSubmit}>
+            <button type='submit'onSubmit={this.handleSubmit}>
               Add note
             </button>
           </div>
@@ -75,3 +75,4 @@ console.log("Hello")
     alert(error.message)
   })
 }
+onsubmit= handleNoteSubmit;

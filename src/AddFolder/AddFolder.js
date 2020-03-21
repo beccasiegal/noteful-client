@@ -15,7 +15,7 @@ export default class AddFolder extends Component {
             <input type='text' id='folder-name-input' />
           </div>
           <div className='buttons'>
-            <button onSubmit={this.handleFolderFormSubmit} type='submit'>
+            <button onSubmit={this.handleSubmit} type='submit'>
               Add folder
             </button>
           </div>
