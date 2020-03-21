@@ -75,4 +75,3 @@ console.log("Hello")
     alert(error.message)
   })
 }
-onsubmit= handleNoteSubmit;
