@@ -47,3 +47,32 @@ export default class AddNote extends Component {
     )
   }
 }
+handleNoteSubmit = (event) => {
+  event.preventDefault();
+
+  const newNote = JSON.stringify({
+    title: this.state.name.value,
+    folder_id: this.state.folderId.value,
+    content: this.state.content.value,
+  })
+
+  fetch(`${config.API_ENDPOINT}/notes`,
+  {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: newNote
+  })
+  .then(res => {
+    if (!res.ok)
+      return res.json().then(e => Promise.reject(e))
+    return res.json()
+  })
+  .then(response => this.context.addNote(response))
+  .then(
+    this.props.history.push('/')
+  )
+  .catch(error => {
+    alert(error.message)
+  })
+}
+onsubmit= handleNoteSubmit;
