@@ -15,7 +15,7 @@ export default class AddFolder extends Component {
             <input type='text' id='folder-name-input' />
           </div>
           <div className='buttons'>
-            <button type='submit'onSubmit={this.handleFolderFormSubmit}>
+            <button onSubmit={this.handleFolderFormSubmit} type='submit'>
               Add folder
             </button>
           </div>
@@ -26,7 +26,7 @@ export default class AddFolder extends Component {
 }
 handleFolderFormSubmit = (event) => {
   event.preventDefault();
-
+console.log("Hello folders")
   const newFolder = JSON.stringify({
     folder_name: this.state.name.value
   })

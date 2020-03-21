@@ -49,7 +49,7 @@ export default class AddNote extends Component {
 }
 handleNoteSubmit = (event) => {
   event.preventDefault();
-
+console.log("Hello")
   const newNote = JSON.stringify({
     title: this.state.name.value,
     folder_id: this.state.folderId.value,
