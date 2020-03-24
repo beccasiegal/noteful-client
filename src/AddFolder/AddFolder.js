@@ -1,53 +1,58 @@
 import React, { Component } from 'react'
-import NotefulForm from '../NotefulForm/NotefulForm'
 import './AddFolder.css'
+import config from '../config';
+import ApiContext from '../ApiContext';
 
-export default class AddFolder extends Component {
+class AddFolder extends Component {
+  handleAddFolder = folderName => {
+    const bodyContent = {
+      folder_name: folderName
+    }
+    const options = {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(bodyContent)
+    }
+    fetch(config.API_ENDPOINT + '/folders', options)
+      .then(rsp => {
+        if (!rsp.ok) throw new Error('Whoops')
+        else return rsp.json()
+      })
+      .then(folder => {
+        this.context.addFolder(folder);
+        this.props.history.push(`/`);
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  }
   render() {
     return (
-      <section className='AddFolder'>
-        <h2>Create a folder</h2>
-        <NotefulForm>
-          <div className='field'>
-            <label htmlFor='folder-name-input'>
-              Name
-            </label>
-            <input type='text' id='folder-name-input' />
-          </div>
-          <div className='buttons'>
-            <button onSubmit={this.handleSubmit} type='submit'>
-              Add folder
-            </button>
-          </div>
-        </NotefulForm>
-      </section>
-    )
+      <div className='addFolder'>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            this.handleAddFolder(e.target.folderName.value)
+          }}
+        >
+          <label
+            htmlFor='folderName'
+          >
+            Name
+         </label>
+          <input
+            type='text'
+            id='folderName'
+            required
+          >
+          </input>
+          <input id="folder-submit" type='submit' value='Add Folder'></input>
+        </form>
+      </div>
+    );
   }
 }
-handleFolderFormSubmit = (event) => {
-  event.preventDefault();
-console.log("Hello folders")
-  const newFolder = JSON.stringify({
-    folder_name: this.state.name.value
-  })
-
-  fetch(`${config.API_ENDPOINT}/folders`,
-  {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: newFolder
-  })
-  .then(res => {
-    if (!res.ok)
-      return res.json().then(e => Promise.reject(e))
-    return res.json()
-  })
-  .then(response => this.context.addFolder(response))
-  .then(
-    this.props.history.push('/')
-  )
-  .catch(error => {
-    alert(error.message)
-  })
-}
-onsubmit=handleFolderFormSubmit;
+AddFolder.contextType = ApiContext
+export default AddFolder;
