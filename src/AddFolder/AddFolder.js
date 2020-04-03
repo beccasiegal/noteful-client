@@ -6,7 +6,7 @@ import ApiContext from '../ApiContext';
 class AddFolder extends Component {
   handleAddFolder = folderName => {
     const bodyContent = {
-      folder_name: folderName
+      name: folderName
     }
     const options = {
       method: 'POST',
