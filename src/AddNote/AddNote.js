@@ -35,7 +35,7 @@ class AddNote extends Component {
 
     const bodyContent = {
       note_name: this.state.name.value,
-      folderid: this.state.folderId.Value,
+      folderid: folderIdValue,
       content: this.state.content.value,
       modified: dateAndTime
     }
