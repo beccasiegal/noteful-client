@@ -100,37 +100,40 @@ class AddNote extends Component {
     const contentError = this.validateContent()
     return (
       <div>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            this.handleAddNote()
-          }}>
-
-          <div className='name-group'>
-            <label htmlFor='noteName'>Name</label>
-            <input type='text' id='noteName' onChange={e => this.updateName(e.target.value)}></input>
-            <p>{this.state.name.touched && nameError}</p>
-          </div>
-
-          <div className='folder-group'>
-            <label htmlFor='noteFolder'>Folder</label>
-            <select id='noteFolder' onChange={e => this.updateSelect(e.target.value)}>{this.selectOptions()}</select>
-          </div>
-
-          <div className='content-group'>
-            <label htmlFor='noteContent'>Content</label>
-            <p>{this.state.content.touched && contentError}</p>
-            <div>
-              <textarea id='noteContent' onChange={e => this.updateContent(e.target.value)}></textarea>
-            </div>
-          </div>
-
-          <button
-            type='submit'
-            disabled={nameError || contentError}
-          >Add Note</button>
-
-        </form>
+        <form className='addNote' onSubmit={e => this.handleSubmit(e)}>
+                    <h2>Add a Note</h2>
+                    <label htmlFor='noteName'>Note Name*</label>
+                    <input 
+                        type='text' 
+                        name='noteName' 
+                        id='noteName'
+                        ref={this.noteNameInput} 
+                        onChange={e => this.updateName(e.target.value)}
+                        aria-label='Enter name for Note'
+                        aria-required='true'
+                        aria-describedby='noteNameFeedback'
+                    />
+                    {this.state.name.touched && (<ValidateError message={this.validateName(this.state.name.value)} />)}
+                    <label htmlFor='noteContent'>Note Content</label>
+                    <textarea name='noteContent' id='noteContent' ref={this.noteContentInput}></textarea>
+                    <label htmlFor='noteFolder'>Folder</label>
+                    <select
+                        htmlFor='noteFolder'
+                        id='noteFolder'
+                        ref={this.noteFolderInput}
+                        aria-label='Select a folder to store note'
+                        aria-required='false'
+                    >
+                        {folderSelections}
+                    </select>
+                    <button 
+                        type='submit'
+                        className='submitButton'
+                        onSubmit={this.handleSubmit}
+                    >
+                        Submit
+                    </button>
+                </form>
       </div>
     );
   }
