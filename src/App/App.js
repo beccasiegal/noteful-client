@@ -7,6 +7,7 @@ import NoteListMain from '../NoteListMain/NoteListMain'
 import NotePageMain from '../NotePageMain/NotePageMain'
 import AddFolder from '../AddFolder/AddFolder'
 import AddNote from '../AddNote/AddNote'
+import dummyStore from '../dummy-store'
 import { getNotesForFolder, findNote, findFolder } from '../notes-helpers'
 import './App.css'
 
@@ -20,6 +21,11 @@ class App extends Component {
   componentDidMount() {
     // fake date loading from API call
     setTimeout(() => this.setState(dummyStore), 600)
+    //TODO: fetch data from backend - assign databases to state - set state with two fetches
+    //get on notes, get on folders - update state
+    //state is exactly same as database
+    //update backend, make sure state matches backend again, delete in state and backend
+    //have method that goes to backend, gets notes and folders, then updates state - overkill if called every time form processed
   }
 
   renderNavRoutes() {
@@ -46,6 +52,8 @@ class App extends Component {
             const { noteId } = routeProps.match.params
             const note = findNote(notes, noteId) || {}
             const folder = findFolder(folders, note.folderId)
+            //might have to change to go to backend instead of state
+            //find out where best place to fetch note from backend is - maybe immediately after create note
             return (
               <NotePageNav
                 {...routeProps}
