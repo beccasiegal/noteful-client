@@ -8,6 +8,7 @@ import NotePageMain from '../NotePageMain/NotePageMain'
 import AddFolder from '../AddFolder/AddFolder'
 import AddNote from '../AddNote/AddNote'
 import dummyStore from '../dummy-store'
+import config from '../config'
 import { getNotesForFolder, findNote, findFolder } from '../notes-helpers'
 import './App.css'
 
@@ -20,7 +21,36 @@ class App extends Component {
 
   componentDidMount() {
     // fake date loading from API call
-    setTimeout(() => this.setState(dummyStore), 600)
+    
+    fetch(`${config.API_ENDPOINT}/notes`)
+      .then(res => {
+        if(!res.ok) {
+          throw new Error('Something went wrong, please try again later');
+        }
+        return res.json();
+      })
+      .then(notes => {
+        this.setState({notes});
+            })
+            .then (()=> {
+              return (fetch(`${config.API_ENDPOINT}/folders`))
+            })
+            .then(res => {
+              if(!res.ok) {
+                throw new Error('Something went wrong, please try again later');
+              }
+              return res.json();
+            })
+            .then (folders =>{
+              this.setState({folders})
+            })
+      .catch(err => {
+        this.setState({
+          error: err.message
+        });
+      });
+  }
+
     //TODO: fetch data from backend - assign databases to state - set state with two fetches
     //get on notes, get on folders - update state
     //state is exactly same as database
