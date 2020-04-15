@@ -126,14 +126,8 @@ class AddNote extends Component {
                     >
                         {this.props.folders.map (folder=> (
                           <option 
-                          key= { 
-                            folder.id
-                          }>
-                          value= { 
-                            folder.id
-                          }>
+                          key={folder.id} name={folder.id}>
                             {folder.name}
-                
                           </option>
 
                         ))}
