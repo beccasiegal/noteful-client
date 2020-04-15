@@ -30,12 +30,12 @@ class AddNote extends Component {
     if (content.length === 0) return 'Did you forget something?'
   }
 
-  handleAddNote = () => {
+  handleAddNote = (e) => {
     const dateAndTime = new Date();
 
     const bodyContent = {
       note_name: this.state.name.value,
-      folderid: folderIdValue,
+      folderid: this.noteFolderInput.value,
       content: this.state.content.value,
       modified: dateAndTime
     }
@@ -100,7 +100,7 @@ class AddNote extends Component {
     const contentError = this.validateContent()
     return (
       <div>
-        <form className='addNote' onSubmit={e => this.handleSubmit(e)}>
+        <form className='addNote' onSubmit={e => this.handleAddNote(e)}>
                     <h2>Add a Note</h2>
                     <label htmlFor='noteName'>Note Name*</label>
                     <input 
@@ -113,7 +113,7 @@ class AddNote extends Component {
                         aria-required='true'
                         aria-describedby='noteNameFeedback'
                     />
-                    {this.state.name.touched && (<ValidateError message={this.validateName(this.state.name.value)} />)}
+            
                     <label htmlFor='noteContent'>Note Content</label>
                     <textarea name='noteContent' id='noteContent' ref={this.noteContentInput}></textarea>
                     <label htmlFor='noteFolder'>Folder</label>
@@ -124,12 +124,24 @@ class AddNote extends Component {
                         aria-label='Select a folder to store note'
                         aria-required='false'
                     >
-                        {folderSelections}
+                        {this.props.folders.map (folder=> (
+                          <option 
+                          key= { 
+                            folder.id
+                          }>
+                          value= { 
+                            folder.id
+                          }>
+                            {folder.name}
+                
+                          </option>
+
+                        ))}
                     </select>
                     <button 
                         type='submit'
                         className='submitButton'
-                        onSubmit={this.handleSubmit}
+        
                     >
                         Submit
                     </button>
@@ -140,3 +152,5 @@ class AddNote extends Component {
 }
 AddNote.contextType = ApiContext
 export default AddNote;
+
+//  {this.state.name.touched && (<ValidateError message={this.validateName(this.state.name.value)} />)}

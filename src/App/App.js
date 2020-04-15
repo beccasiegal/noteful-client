@@ -56,7 +56,7 @@ class App extends Component {
     //state is exactly same as database
     //update backend, make sure state matches backend again, delete in state and backend
     //have method that goes to backend, gets notes and folders, then updates state - overkill if called every time form processed
-  }
+
 
   renderNavRoutes() {
     const { notes, folders } = this.state

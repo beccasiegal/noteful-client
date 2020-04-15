@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 export default {
-    API_ENDPOINT: 'https://noteful-full.herokuapp.com/'
+    API_ENDPOINT: process.env.API_ENDPOINT || "http://localhost:8000/api"
   }
