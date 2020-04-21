@@ -21,6 +21,7 @@ class AddNote extends Component {
       }
     }
   }
+  noteFolderInput=React.createRef();
   validateName = () => {
     const name = this.state.name.value.trim()
     if (name.length === 0) return 'Name cannot be empty'
@@ -31,11 +32,12 @@ class AddNote extends Component {
   }
 
   handleAddNote = (e) => {
+    e.preventDefault();
     const dateAndTime = new Date();
 
     const bodyContent = {
       note_name: this.state.name.value,
-      folderid: this.noteFolderInput.value,
+      folderid: this.state.folder.value,
       content: this.state.content.value,
       modified: dateAndTime
     }
