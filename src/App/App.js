@@ -61,7 +61,6 @@ class App extends Component {
   renderNavRoutes() {
     const { notes, folders } = this.state
     return (
-      <>
         {['/', '/folder/:folderId'].map(path =>
           <Route
             exact
